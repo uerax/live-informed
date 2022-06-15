@@ -38,3 +38,8 @@ func (d *Decision) decision(data *bilibili.LiveInfoResp){
 
 	Rsl = result
 }
+
+
+func Clear() {
+	Rsl = make(map[int64]string, 0)
+}

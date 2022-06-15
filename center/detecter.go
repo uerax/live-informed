@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:24:27
  * @Description:
- * @FilePath: /live-informed/center/detecter.go
+ * @FilePath: \live-informed\center\detecter.go
  */
 package center
 
@@ -27,25 +27,25 @@ func init() {
 }
 
 func (t *Task) Detection() {
-	if (len(t.List) == 0) {
-		return;
+
+	if len(t.List) == 0 {
+		return
 	}
 
-	
 	tmp := make([]int64, 0, len(t.List))
 
 	for k, _ := range t.List {
 		log.Infof("detect %d", k)
 		tmp = append(tmp, k)
 	}
-	
+
 	res, err := bilibili.GetLiveInfo(tmp)
 	if err != nil {
 		return
 	}
 
 	des.decision(res)
-	
+
 }
 
 func (t *Task) AddTask(uid int64) {

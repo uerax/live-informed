@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:08:11
  * @Description:
- * @FilePath: /live-informed/process/processor.go
+ * @FilePath: \live-informed\process\processor.go
  */
 
 package process
@@ -25,7 +25,7 @@ type Processor struct {
 	Api openapi.OpenAPI
 }
 
-var ( 
+var (
 	channelId string
 	// 消息处理器，持有 openapi 对象
 	Process Processor
@@ -37,25 +37,25 @@ func init() {
 }
 
 func (p Processor) SendMsgs(msg map[int64]string) {
-	if (len(msg) == 0) {
+	if len(msg) == 0 {
 		return
 	}
 	ctx := context.Background()
 	toCreate := &dto.MessageToCreate{
-		MsgID: "",
-		Content: "默认回复" + message.Emoji(307),
+		MsgID:   "",
+		Content: "@everyone ",
 	}
 	for _, v := range msg {
-		toCreate.Content = v
-		Process.Api.PostMessage(ctx, channelId, toCreate)
+		toCreate.Content = toCreate.Content + "\n" + v
+
 	}
-	
+
+	p.Api.PostMessage(ctx, channelId, toCreate)
 }
-	
 
 // ProcessMessage is a function to process message
 func (p Processor) ProcessMessage(input string, data *dto.WSATMessageData) error {
-	
+
 	channelId = data.ChannelID
 	ctx := context.Background()
 	cmd := message.ParseCommand(input)

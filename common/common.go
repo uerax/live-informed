@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:10:31
  * @Description:
- * @FilePath: /live-informed/common/common.go
+ * @FilePath: \live-informed\common\common.go
  */
 package common
 
@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	msg = "@所有人 %s 已开播 https://live.bilibili.com/%d"
+	msg = "%s 已开播"
 )
 
 func GetIP() string {
@@ -32,5 +32,5 @@ func GetIP() string {
 }
 
 func SplicingMsg(roomId int64, uName string) string {
-	return fmt.Sprintf(msg, uName, roomId)
+	return fmt.Sprintf(msg, uName)
 }

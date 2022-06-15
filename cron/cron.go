@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 10:31:39
  * @Description:
- * @FilePath: /live-informed/cron/cron.go
+ * @FilePath: \live-informed\cron\cron.go
  */
 package cron
 
@@ -10,6 +10,8 @@ import (
 	"live-informed/center"
 	"live-informed/process"
 	"time"
+
+	"github.com/tencent-connect/botgo/log"
 )
 
 func Init() {
@@ -17,15 +19,12 @@ func Init() {
 }
 
 func Do() {
-	timeChannel := time.NewTimer(10 * time.Second)
-  	select {
-    case <-timeChannel.C:
-       go do()
-  }
-}
-
-func do() {
-	center.TaskStart()
-	process.Process.SendMsgs(center.Rsl)
-	center.Rsl = make(map[int64]string, 0)
+	t := time.NewTimer(10 * time.Second)
+	select {
+	case <-t.C:
+		log.Infof("----- 定时探测决策 -----")
+		center.TaskStart()
+		process.Process.SendMsgs(center.Rsl)
+		center.Clear()
+	}
 }
