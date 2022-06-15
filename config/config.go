@@ -17,7 +17,7 @@ import (
 
 
 var (
-	url = "../etc/live-informed.yaml"
+	url = "./etc/live-informed.yaml"
 	cfg = make(map[string]map[string]string, 0)
 )
 

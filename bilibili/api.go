@@ -55,7 +55,7 @@ type LiveInfo struct {
 	BroadcastType int `json:"broadcast_type"`	// 0:普通直播	1：手机直播
 }
 
-func getLiveInfo(uids []int64) (*LiveInfoResp, error) {
+func GetLiveInfo(uids []int64) (*LiveInfoResp, error) {
 	
 	liveInfoReq := &LiveInfoReq{uids}
 

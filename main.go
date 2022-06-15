@@ -12,16 +12,22 @@ import (
 	"time"
 
 	"live-informed/config"
+	"live-informed/cron"
+	"live-informed/handler"
+	"live-informed/process"
 
 	"github.com/tencent-connect/botgo"
 	"github.com/tencent-connect/botgo/token"
 	"github.com/tencent-connect/botgo/websocket"
 )
 
-// 消息处理器，持有 openapi 对象
-//var processor Processor
+func Init() {
+	config.Init()
+	cron.Init()
+}
 
 func main() {
+	Init()
 	ctx := context.Background()
 	
 	botToken := token.BotToken(config.GetAppId(), config.GetToken())
@@ -34,13 +40,13 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	//processor = Processor{api: api}
+	 process.Process = process.Processor{Api: api}
 
 	// websocket.RegisterResumeSignal(syscall.SIGUSR1)
 	// 根据不同的回调，生成 intents
 	intent := websocket.RegisterHandlers(
 		// at 机器人事件，目前是在这个事件处理中有逻辑，会回消息，其他的回调处理都只把数据打印出来，不做任何处理
-		//ATMessageEventHandler(),
+		handler.ATMessageEventHandler(process.Process),
 		// 如果想要捕获到连接成功的事件，可以实现这个回调
 		//ReadyHandler(),
 		// 连接关闭回调

@@ -24,9 +24,9 @@ func Test_getLiveInfo(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := getLiveInfo(tt.args.uids)
+			got, err := GetLiveInfo(tt.args.uids)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("getLiveInfo() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetLiveInfo() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			t.Logf("%v", got)
