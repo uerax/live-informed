@@ -6,16 +6,6 @@
  */
 package center
 
-import "strconv"
-
-func AddTask(uid string) error {
-	id, err := strconv.ParseInt(uid, 10, 64)
-	if err != nil {
-		return err
-	}
-	tasks.AddTask(id)
-	return nil
-}
 
 func TaskStart() {
 	tasks.Detection()

@@ -6,40 +6,15 @@
  */
 package center
 
-import (
-	"live-informed/bilibili"
-	"live-informed/common"
-)
+import "live-informed/process"
 
-type Decision struct {
-	Des map[int64]int
-}
+var Rsl = make(map[string]bool, 0)
 
-var des *Decision
-var Rsl = make(map[int64]string, 0)
-
-func init() {
-	des = &Decision{
-		make(map[int64]int, 0),
-	}
-}
-
-func (d *Decision) decision(data *bilibili.LiveInfoResp){
-	tmp := make(map[int64]int, 0)
-	result := make(map[int64]string, 0)
-	for _, info := range data.Data {
-		tmp[info.Uid] = info.LiveStatus
-		if info.LiveStatus == 1 && des.Des[info.Uid] != 1{
-			result[info.Uid] = common.SplicingMsg(info.Uid, info.UName)
+func decision(isLiving bool, mid string) {
+	if r, ok := Rsl[mid]; ok {
+		if !r && isLiving {
+			process.Process.SendMsgs("香香鸡腿堡已开播")
 		}
 	}
-
-	des.Des = tmp
-
-	Rsl = result
-}
-
-
-func Clear() {
-	Rsl = make(map[int64]string, 0)
+	Rsl[mid] = isLiving
 }

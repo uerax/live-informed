@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:08:11
  * @Description:
- * @FilePath: \live-informed\process\processor.go
+ * @FilePath: /live-informed/process/processor.go
  */
 
 package process
@@ -11,7 +11,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"live-informed/center"
 	"live-informed/common"
 	"log"
 	"time"
@@ -36,18 +35,14 @@ func init() {
 	Process = Processor{}
 }
 
-func (p Processor) SendMsgs(msg map[int64]string) {
+func (p Processor) SendMsgs(msg string) {
 	if len(msg) == 0 {
 		return
 	}
 	ctx := context.Background()
 	toCreate := &dto.MessageToCreate{
 		MsgID:   "",
-		Content: "@everyone ",
-	}
-	for _, v := range msg {
-		toCreate.Content = toCreate.Content + "\n" + v
-
+		Content: "@everyone " + msg,
 	}
 
 	p.Api.PostMessage(ctx, channelId, toCreate)
@@ -76,11 +71,7 @@ func (p Processor) ProcessMessage(input string, data *dto.WSATMessageData) error
 
 	switch cmd.Cmd {
 	case "/add":
-		toCreate.Content = "添加成功"
-		err := center.AddTask(cmd.Content)
-		if err != nil {
-			toCreate.Content = "非法输入, 请输入主播的uid"
-		}
+		toCreate.Content = "暂不支持"
 		p.sendReply(ctx, data.ChannelID, toCreate)
 	case "hi":
 		p.sendReply(ctx, data.ChannelID, toCreate)

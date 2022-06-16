@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:24:27
  * @Description:
- * @FilePath: \live-informed\center\detecter.go
+ * @FilePath: /live-informed/center/detecter.go
  */
 package center
 
@@ -14,44 +14,31 @@ import (
 
 // 探测列表
 type Task struct {
-	List map[int64]struct{}
+	List string
 }
 
 var tasks *Task
 
 func init() {
 	tasks = &Task{
-		make(map[int64]struct{}),
+		List: "211336",
 	}
-	tasks.List[211336] = struct{}{}
 }
 
 func (t *Task) Detection() {
 
-	if len(t.List) == 0 {
+	if t.List == "" {
 		return
 	}
 
-	tmp := make([]int64, 0, len(t.List))
+	log.Infof("detect %d", t.List)
 
-	for k, _ := range t.List {
-		log.Infof("detect %d", k)
-		tmp = append(tmp, k)
-	}
-
-	res, err := bilibili.GetLiveInfo(tmp)
+	isLiving, err := bilibili.UserIsLiving(t.List)
 	if err != nil {
 		return
 	}
 
-	des.decision(res)
+	decision(isLiving, t.List)
 
 }
 
-func (t *Task) AddTask(uid int64) {
-	t.List[uid] = struct{}{}
-}
-
-func (t *Task) DelTask(uid int64) {
-	delete(t.List, uid)
-}
