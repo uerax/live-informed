@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 02:26:16
  * @Description:
- * @FilePath: /live-informed/bilibili/api.go
+ * @FilePath: \live-informed\bilibili\api.go
  */
 package bilibili
 
@@ -18,11 +18,11 @@ import (
 const (
 	// 疑似被b站关闭
 	StatusInfoUrl = "http://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids"
-	UserInfoUrl = "https://api.bilibili.com/x/space/acc/info?mid="
+	UserInfoUrl   = "https://api.bilibili.com/x/space/acc/info?mid="
 )
 
 func GetLiveInfo(uids []int64) (*LiveInfoResp, error) {
-	
+
 	liveInfoReq := &LiveInfoReq{uids}
 
 	req, err := json.Marshal(liveInfoReq)

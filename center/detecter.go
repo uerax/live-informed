@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:24:27
  * @Description:
- * @FilePath: /live-informed/center/detecter.go
+ * @FilePath: \live-informed\center\detecter.go
  */
 package center
 
@@ -31,7 +31,7 @@ func (t *Task) Detection() {
 		return
 	}
 
-	log.Infof("detect %d", t.List)
+	log.Infof("detect %s", t.List)
 
 	isLiving, err := bilibili.UserIsLiving(t.List)
 	if err != nil {
@@ -41,4 +41,3 @@ func (t *Task) Detection() {
 	decision(isLiving, t.List)
 
 }
-
