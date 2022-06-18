@@ -6,7 +6,13 @@
  */
 package center
 
+import "live-informed/result"
+
 
 func TaskStart() {
 	tasks.Detection()
+}
+
+func GetStatus() bool {
+	return result.Rsl["211336"]
 }

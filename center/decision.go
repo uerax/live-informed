@@ -6,15 +6,16 @@
  */
 package center
 
-import "live-informed/process"
-
-var Rsl = make(map[string]bool, 0)
+import (
+	"live-informed/process"
+	"live-informed/result"
+)
 
 func decision(isLiving bool, mid string) {
-	if r, ok := Rsl[mid]; ok {
+	if r, ok := result.Rsl[mid]; ok {
 		if !r && isLiving {
 			process.Process.SendMsgs("香香鸡腿堡已开播")
 		}
 	}
-	Rsl[mid] = isLiving
+	result.Rsl[mid] = isLiving
 }

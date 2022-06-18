@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"live-informed/common"
+	"live-informed/result"
 	"log"
 	"time"
 
@@ -70,6 +71,15 @@ func (p Processor) ProcessMessage(input string, data *dto.WSATMessageData) error
 	}
 
 	switch cmd.Cmd {
+	case "/status":
+		msg := ""
+		if result.Rsl["211336"] {
+			msg = "香香鸡腿堡正在直播"
+		} else {
+			msg = "香香鸡腿堡未开播"
+		}
+		toCreate.Content = msg
+		p.sendReply(ctx, data.ChannelID, toCreate)
 	case "/add":
 		toCreate.Content = "暂不支持"
 		p.sendReply(ctx, data.ChannelID, toCreate)
