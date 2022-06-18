@@ -14,7 +14,10 @@ import (
 func decision(isLiving bool, mid string) {
 	if r, ok := result.Rsl[mid]; ok {
 		if !r && isLiving {
-			process.Process.SendMsgs("香香鸡腿堡已开播")
+			process.Process.SendMsgs("香香鸡腿堡 已开播")
+		}
+		if r && !isLiving {
+			process.Process.SendMsgs("香香鸡腿堡 已下播")
 		}
 	}
 	result.Rsl[mid] = isLiving
