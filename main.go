@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 01:27:09
  * @Description:
- * @FilePath: /live-informed/main.go
+ * @FilePath: \live-informed\main.go
  */
 package main
 
@@ -13,6 +13,7 @@ import (
 
 	"live-informed/config"
 	"live-informed/cron"
+	"live-informed/danmu"
 	"live-informed/handler"
 	"live-informed/process"
 
@@ -24,14 +25,16 @@ import (
 func Init() {
 	config.Init()
 	cron.Init()
+	danmu.Init()
 }
 
 func main() {
+
 	Init()
 	ctx := context.Background()
-	
+
 	botToken := token.BotToken(config.GetAppId(), config.GetToken())
-	
+
 	// 初始化 openapi，正式环境
 	api := botgo.NewOpenAPI(botToken).WithTimeout(3 * time.Second)
 
@@ -40,7 +43,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	 process.Process = process.Processor{Api: api}
+	process.Process = process.Processor{Api: api}
 
 	// websocket.RegisterResumeSignal(syscall.SIGUSR1)
 	// 根据不同的回调，生成 intents
@@ -70,6 +73,5 @@ func main() {
 	if err = botgo.NewSessionManager().Start(wsInfo, botToken, &intent); err != nil {
 		log.Fatalln(err)
 	}
-
 
 }

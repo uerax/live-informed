@@ -15,7 +15,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-
 var (
 	url = "./etc/live-informed.yaml"
 	cfg = make(map[string]map[string]string, 0)
@@ -47,7 +46,7 @@ func loadConfig() error {
 	cfg = tmp
 
 	return nil
-	
+
 }
 
 func GetToken() string {
@@ -57,4 +56,8 @@ func GetToken() string {
 func GetAppId() uint64 {
 	appid, _ := strconv.ParseUint(cfg["server"]["appid"], 10, 64)
 	return appid
+}
+
+func GetRoomId() string {
+	return cfg["server"]["roomid"]
 }

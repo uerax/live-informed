@@ -2,7 +2,7 @@
  * @Author: ww
  * @Date: 2022-06-15 07:08:11
  * @Description:
- * @FilePath: /live-informed/process/processor.go
+ * @FilePath: \live-informed\process\processor.go
  */
 
 package process
@@ -43,7 +43,7 @@ func (p Processor) SendMsgs(msg string) {
 	ctx := context.Background()
 	toCreate := &dto.MessageToCreate{
 		MsgID:   "",
-		Content: "@everyone " + msg,
+		Content: msg,
 	}
 
 	p.Api.PostMessage(ctx, channelId, toCreate)
